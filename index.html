@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5faf4">
+  <title>Falcons | تسجيل الدخول</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #233a32;
+      --muted: #75877e;
+      --green: #27835d;
+      --green-dark: #1d6949;
+      --line: #e4ebe4;
+      --paper: #fff;
+      font-family: "Cairo", Tahoma, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body { min-width: 320px; min-height: 100vh; margin: 0; color: var(--ink); background: #f5faf4; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .page { min-height: 100vh; display: grid; grid-template-columns: minmax(450px, 0.92fr) minmax(500px, 1.08fr); overflow: hidden; }
+    .login-side {
+      position: relative; display: flex; flex-direction: column; justify-content: center;
+      padding: 52px clamp(36px, 7vw, 108px);
+      background: radial-gradient(ellipse at 10% 15%, rgba(239, 250, 238, .9), transparent 35%), var(--paper);
+      animation: arrive .7s both;
+    }
+    .brand {
+      position: absolute; top: 33px; right: clamp(36px, 7vw, 108px); display: inline-flex; align-items: center; gap: 11px;
+      color: var(--ink); text-decoration: none; font-size: 22px; font-weight: 800; letter-spacing: 0;
+    }
+    .brand-mark {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; color: white; background: var(--green);
+      box-shadow: 0 6px 14px #27835d33; font-family: Georgia, serif; font-size: 23px; font-weight: 700;
+    }
+    .form-wrap { width: min(100%, 410px); margin: 27px auto 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--green); font-size: 13px; font-weight: 700; }
+    .eyebrow::before { width: 7px; height: 7px; border-radius: 50%; background: #78c49a; content: ""; box-shadow: 0 0 0 4px #78c49a25; }
+    h1 { margin: 0; font-size: 32px; font-weight: 800; line-height: 1.45; }
+    .intro { margin: 5px 0 27px; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .field { margin-bottom: 17px; }
+    .field-label, .password-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; font-size: 13px; font-weight: 700; }
+    .password-row a, .signup a { color: var(--green); text-decoration: none; font-weight: 700; }
+    .password-row a:hover, .signup a:hover { text-decoration: underline; }
+    .input-wrap { position: relative; }
+    .input-wrap input {
+      width: 100%; height: 49px; padding: 0 14px; border: 1px solid var(--line); border-radius: 8px; outline: none;
+      color: var(--ink); background: #fff; font-size: 14px; transition: border-color .2s, box-shadow .2s;
+    }
+    .input-wrap input::placeholder { color: #a3b0a9; }
+    .input-wrap input:focus { border-color: #70b991; box-shadow: 0 0 0 3px #70b99120; }
+    .password-input { padding-left: 54px !important; }
+    .reveal-password {
+      position: absolute; top: 50%; left: 8px; width: 36px; height: 36px; transform: translateY(-50%); display: grid; place-items: center;
+      border: 0; border-radius: 6px; color: #74857c; background: transparent; cursor: pointer;
+    }
+    .reveal-password:hover { color: var(--green); background: #f0f7f1; }
+    .reveal-password svg { width: 19px; height: 19px; }
+    .remember { display: flex; align-items: center; gap: 8px; margin: 2px 0 18px; color: #64766d; font-size: 13px; cursor: pointer; }
+    .remember input { width: 15px; height: 15px; margin: 0; accent-color: var(--green); }
+    .submit-button {
+      width: 100%; height: 49px; border: 0; border-radius: 8px; color: #fff; background: var(--green);
+      box-shadow: 0 7px 15px #27835d2b; font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: transform .2s, background .2s, box-shadow .2s;
+    }
+    .submit-button:hover { transform: translateY(-2px); background: var(--green-dark); box-shadow: 0 10px 20px #27835d38; }
+    .submit-button:active { transform: translateY(0); }
+    .divider { display: flex; align-items: center; gap: 13px; margin: 21px 0 15px; color: #96a49b; font-size: 12px; }
+    .divider::before, .divider::after { height: 1px; flex: 1; background: var(--line); content: ""; }
+    .socials { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .social-button {
+      min-width: 0; height: 43px; display: flex; align-items: center; justify-content: center; gap: 9px;
+      border: 1px solid var(--line); border-radius: 7px; background: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .social-button:hover { transform: translateY(-1px); border-color: #b8d7c2; background: #fbfefb; }
+    .social-icon { width: 19px; height: 19px; display: grid; place-items: center; font-family: Arial, sans-serif; font-size: 16px; font-weight: 800; }
+    .google { color: #4285f4; }
+    .facebook { color: #1877f2; font-size: 20px; }
+    .github { color: #24292f; }
+    .github svg { width: 18px; height: 18px; fill: currentColor; }
+    .microsoft { display: grid; grid-template-columns: 7px 7px; grid-template-rows: 7px 7px; gap: 2px; }
+    .microsoft i:nth-child(1) { background: #f25022; }
+    .microsoft i:nth-child(2) { background: #7fba00; }
+    .microsoft i:nth-child(3) { background: #00a4ef; }
+    .microsoft i:nth-child(4) { background: #ffb900; }
+    .signup { margin: 22px 0 0; text-align: center; color: #75877e; font-size: 13px; }
+    .verification-copy { margin: 7px 0 21px; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .verification-copy strong { color: var(--ink); direction: ltr; unicode-bidi: plaintext; }
+    .verification-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    .secondary-button { min-height: 43px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--green); font-size: 12px; font-weight: 700; cursor: pointer; }
+    .secondary-button:hover:not(:disabled) { border-color: #b8d7c2; background: #fbfefb; }
+    .secondary-button:disabled, .submit-button:disabled, .social-button:disabled { cursor: wait; opacity: .65; }
+    [hidden] { display: none !important; }
+    .terms { position: absolute; right: 24px; bottom: 16px; left: 24px; margin: 0; color: #9aa79f; text-align: center; font-size: 11px; }
+    .terms a { color: #71877a; text-decoration: none; }
+
+    .art-side {
+      position: relative; min-height: 720px; display: grid; place-items: center; overflow: hidden; isolation: isolate;
+      background: linear-gradient(155deg, #dff4ef 0%, #eff8df 59%, #f7efd9 100%);
+    }
+    .art-side::before {
+      position: absolute; inset: 0; z-index: -2; background-image: radial-gradient(#71a98a25 1px, transparent 1px);
+      background-size: 23px 23px; content: ""; mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .sun { position: absolute; top: 12%; left: 16%; width: 93px; aspect-ratio: 1; border-radius: 50%; background: #ffd889; box-shadow: 0 0 0 16px #ffd88924, 0 0 55px #ffd88955; animation: sun-glow 5s ease-in-out infinite alternate; }
+    .cloud { position: absolute; top: 23%; right: 15%; width: 102px; height: 23px; border-radius: 20px; background: #ffffffa6; animation: cloud-drift 8s ease-in-out infinite alternate; }
+    .cloud::before, .cloud::after { position: absolute; bottom: 5px; border-radius: 50%; background: inherit; content: ""; }
+    .cloud::before { right: 18px; width: 37px; height: 37px; }
+    .cloud::after { right: 46px; width: 27px; height: 27px; }
+    .scene { position: absolute; right: 7%; bottom: 14%; left: 7%; height: 47%; min-height: 285px; }
+    .hill { position: absolute; bottom: 0; width: 76%; height: 73%; border-radius: 50% 50% 0 0 / 36% 36% 0 0; }
+    .hill-back { right: -9%; height: 62%; background: #abd9b9; opacity: .72; }
+    .hill-front { right: 2%; background: #75bc8b; }
+    .hill-shadow { right: 0; bottom: -2%; width: 110%; height: 37%; border-radius: 48% 48% 0 0; background: #5ca977; }
+    .block {
+      position: absolute; width: 54px; height: 54px; border: 1px solid #ffffff75; border-radius: 7px;
+      background: linear-gradient(145deg, #ffffffad, #ffffff23); box-shadow: 0 12px 27px #4e866326, inset 0 1px #fff9;
+      backdrop-filter: blur(3px); animation: block-float 5s ease-in-out infinite;
+    }
+    .block-one { top: 13%; right: 13%; width: 43px; height: 43px; animation-delay: -1.2s; }
+    .block-two { top: 35%; left: 10%; width: 67px; height: 67px; animation-delay: -3s; }
+    .block-three { top: 2%; left: 30%; width: 30px; height: 30px; animation-delay: -2s; }
+    .block-four { right: 43%; bottom: 10%; width: 34px; height: 34px; animation-delay: -4s; }
+    .service-note { position: absolute; top: 8%; right: 8%; left: 8%; text-align: center; animation: arrive .9s .12s both; }
+    .service-note span { display: inline-block; margin-bottom: 14px; padding: 5px 12px; border: 1px solid #ffffffa8; border-radius: 20px; color: #477b61; background: #ffffff5e; font-size: 12px; font-weight: 700; }
+    .service-note h2 { margin: 0; color: #315f4b; font-size: 26px; font-weight: 800; line-height: 1.55; }
+    .service-note p { max-width: 350px; margin: 7px auto; color: #648574; font-size: 13px; line-height: 1.9; }
+    .pixel-tree { position: absolute; z-index: 2; bottom: 23%; width: 26px; height: 52px; }
+    .pixel-tree::before { position: absolute; top: 0; right: -12px; width: 50px; height: 36px; background: #38885b; box-shadow: 0 -9px 0 -2px #469967, 0 8px 0 -3px #317950; content: ""; }
+    .pixel-tree::after { position: absolute; right: 8px; bottom: 0; width: 10px; height: 21px; background: #956d48; content: ""; }
+    .tree-one { right: 21%; transform: scale(1.2); }
+    .tree-two { right: 68%; bottom: 18%; transform: scale(.8); }
+    .bird { position: absolute; top: 34%; left: 35%; width: 19px; height: 9px; border-top: 2px solid #6f9b83; border-radius: 50%; transform: rotate(-18deg); }
+    .bird::after { position: absolute; top: -3px; left: 10px; width: 15px; height: 8px; border-top: 2px solid #6f9b83; border-radius: 50%; transform: rotate(30deg); content: ""; }
+    .toast {
+      position: fixed; right: 50%; bottom: 25px; z-index: 5; max-width: calc(100vw - 32px); padding: 12px 18px;
+      border: 1px solid #dce9df; border-radius: 8px; color: #315f4b; background: #fff; box-shadow: 0 8px 30px #233a321c;
+      font-size: 13px; text-align: center; opacity: 0; pointer-events: none; transform: translate(50%, 12px); transition: opacity .2s, transform .2s;
+    }
+    .toast.visible { opacity: 1; transform: translate(50%, 0); }
+    @keyframes arrive { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes block-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-13px) rotate(4deg); } }
+    @keyframes cloud-drift { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+    @keyframes sun-glow { from { box-shadow: 0 0 0 14px #ffd88924, 0 0 42px #ffd88945; } to { box-shadow: 0 0 0 21px #ffd88919, 0 0 62px #ffd88966; } }
+
+    @media (max-width: 960px) {
+      .page { grid-template-columns: minmax(390px, 1fr) minmax(330px, .85fr); }
+      .login-side { padding-right: 38px; padding-left: 38px; }
+      .brand { right: 38px; }
+      .service-note h2 { font-size: 22px; }
+    }
+    @media (max-width: 720px) {
+      .page { display: flex; flex-direction: column; overflow: visible; }
+      .art-side { order: -1; min-height: 270px; height: 270px; }
+      .service-note { top: 18px; }
+      .service-note span { margin-bottom: 5px; padding: 3px 10px; font-size: 11px; }
+      .service-note h2 { font-size: 20px; }
+      .service-note p { max-width: 300px; margin-top: 2px; font-size: 11px; }
+      .sun { top: 19%; left: 10%; width: 54px; }
+      .cloud { top: 32%; right: 8%; transform: scale(.7); }
+      .scene { right: 4%; bottom: -2%; left: 4%; height: 48%; min-height: 130px; }
+      .hill { height: 76%; }
+      .pixel-tree { bottom: 22%; transform: scale(.65); }
+      .tree-one { right: 18%; }
+      .tree-two { right: 68%; bottom: 16%; }
+      .block-one { top: 23%; right: 18%; transform: scale(.68); }
+      .block-two { top: 35%; left: 7%; transform: scale(.63); }
+      .block-three { top: 18%; left: 31%; transform: scale(.65); }
+      .block-four { display: none; }
+      .login-side { min-height: 650px; padding: 78px 25px 62px; }
+      .brand { top: 20px; right: 25px; font-size: 19px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .form-wrap { margin-top: 4px; }
+      .terms { bottom: 13px; font-size: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="login-side" aria-labelledby="login-title">
+      <a class="brand" href="#" aria-label="Falcons - الصفحة الرئيسية">
+        <span class="brand-mark" aria-hidden="true">F</span><span>Falcons</span>
+      </a>
+      <div class="form-wrap">
+        <div class="eyebrow">مساحتك تبدأ من هنا</div>
+        <h1 id="login-title">أهلًا بعودتك</h1>
+        <p class="intro" id="login-description">سجّل دخولك واكتشف عالمًا من خدمات ماينكرافت المجانية.</p>
+        <div id="login-options">
+        <form id="login-form">
+          <div class="field">
+            <label class="field-label" for="email">البريد الإلكتروني</label>
+            <div class="input-wrap"><input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+          </div>
+          <div class="field">
+            <div class="password-row"><label for="password">كلمة المرور</label><a id="forgot-link" href="#forgot">نسيت كلمة المرور؟</a></div>
+            <div class="input-wrap">
+              <input class="password-input" id="password" name="password" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور" required>
+              <button class="reveal-password" type="button" aria-label="إظهار كلمة المرور" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+            </div>
+          </div>
+          <label class="remember"><input type="checkbox" name="remember"> تذكرني على هذا الجهاز</label>
+          <button class="submit-button" type="submit">تسجيل الدخول</button>
+        </form>
+        <div class="divider">أو تابع باستخدام</div>
+        <div class="socials" aria-label="خيارات تسجيل الدخول">
+          <button class="social-button" type="button" data-provider="google"><span class="social-icon google" aria-hidden="true">G</span> Google</button>
+          <button class="social-button" type="button" data-provider="microsoft"><span class="social-icon microsoft" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Microsoft</button>
+          <button class="social-button" type="button" data-provider="github"><span class="social-icon github" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.51-1.3-1.24-1.64-1.24-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.48-.28-5.09-1.24-5.09-5.53 0-1.22.44-2.21 1.16-2.99-.12-.29-.5-1.42.11-2.95 0 0 .95-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.1-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.66.11 2.95.72.78 1.16 1.77 1.16 2.99 0 4.3-2.62 5.25-5.11 5.52.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg></span> GitHub</button>
+          <button class="social-button" type="button" data-provider="facebook"><span class="social-icon facebook" aria-hidden="true">f</span> Facebook</button>
+        </div>
+        <p class="signup" id="signup-copy">ليس لديك حساب؟ <a id="signup-toggle" href="#signup">أنشئ حسابًا</a></p>
+        </div>
+
+        <section id="verification-step" aria-labelledby="verification-title" hidden>
+          <div class="eyebrow">خطوة أمان إضافية</div>
+          <h2 id="verification-title">تحقق من بريدك</h2>
+          <p class="verification-copy" id="verification-copy">أرسلنا رمزًا مكوّنًا من 6 أرقام إلى <strong id="code-destination"></strong>. أدخل الرمز لإكمال تسجيل الدخول.</p>
+          <form id="verification-form">
+            <div class="field">
+              <label class="field-label" for="verification-code">رمز التحقق</label>
+              <div class="input-wrap"><input id="verification-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required></div>
+            </div>
+            <button class="submit-button" id="verify-button" type="submit">تأكيد الرمز وتسجيل الدخول</button>
+          </form>
+          <div class="verification-actions">
+            <button class="secondary-button" id="resend-code" type="button" disabled>إعادة الإرسال بعد 60 ث</button>
+            <button class="secondary-button" id="back-to-login" type="button">العودة لتسجيل الدخول</button>
+          </div>
+        </section>
+      </div>
+      <p class="terms">بمتابعتك، أنت توافق على <a href="#terms">الشروط والأحكام</a> و<a href="#privacy">سياسة الخصوصية</a>.</p>
+    </section>
+
+    <section class="art-side" aria-label="عالم Falcons">
+      <div class="sun" aria-hidden="true"></div><div class="cloud" aria-hidden="true"></div><div class="bird" aria-hidden="true"></div>
+      <div class="block block-one" aria-hidden="true"></div><div class="block block-two" aria-hidden="true"></div>
+      <div class="block block-three" aria-hidden="true"></div><div class="block block-four" aria-hidden="true"></div>
+      <div class="service-note">
+        <span>مجتمع واحد، عوالم بلا حدود</span>
+        <h2>مغامرتك الجاية<br>على بُعد تسجيل دخول</h2>
+        <p>أدوات وعوالم وخدمات مجانية تساعدك تبني تجربتك بطريقتك.</p>
+      </div>
+      <div class="scene" aria-hidden="true">
+        <div class="hill hill-back"></div><div class="hill hill-front"></div><div class="hill hill-shadow"></div>
+        <div class="pixel-tree tree-one"></div><div class="pixel-tree tree-two"></div>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import {
+      FacebookAuthProvider,
+      GithubAuthProvider,
+      GoogleAuthProvider,
+      OAuthProvider,
+      browserLocalPersistence,
+      browserSessionPersistence,
+      getAuth,
+      sendPasswordResetEmail,
+      setPersistence,
+      signInWithCustomToken,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-functions.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB4Y7PCMvPRGoaVSQfVjl9z-uHU-GuYi6w",
+      authDomain: "troxylauncher.firebaseapp.com",
+      databaseURL: "https://troxylauncher-default-rtdb.firebaseio.com",
+      projectId: "troxylauncher",
+      storageBucket: "troxylauncher.firebasestorage.app",
+      messagingSenderId: "436686676669",
+      appId: "1:436686676669:web:e85a7c3736c594eaef8dd4",
+      measurementId: "G-GF6973B8MH"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const functions = getFunctions(app, "us-central1");
+    const beginEmailLogin = httpsCallable(functions, "beginEmailPasswordLogin");
+    const beginEmailSignup = httpsCallable(functions, "beginEmailPasswordSignup");
+    const resendEmailCode = httpsCallable(functions, "resendEmailPasswordCode");
+    const verifyEmailCode = httpsCallable(functions, "verifyEmailPasswordCode");
+    const verifyEmailSignup = httpsCallable(functions, "verifyEmailPasswordSignup");
+    const toast = document.querySelector("#toast");
+    const loginOptions = document.querySelector("#login-options");
+    const verificationStep = document.querySelector("#verification-step");
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
+    const codeInput = document.querySelector("#verification-code");
+    const resendButton = document.querySelector("#resend-code");
+    let toastTimer;
+    let challengeId = "";
+    let resendTimer;
+    let resendRemaining = 0;
+    let isCreatingAccount = false;
+
+    function showMessage(message) {
+      toast.textContent = message;
+      toast.classList.add("visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("visible"), 4000);
+    }
+
+    function errorMessage(error) {
+      const messages = {
+        "functions/unauthenticated": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+        "functions/already-exists": "هذا البريد مسجل بالفعل. سجّل الدخول بدلًا من إنشاء حساب جديد.",
+        "functions/invalid-argument": "تحقق من البريد والرمز المكوّن من 6 أرقام.",
+        "functions/permission-denied": "الرمز غير صحيح أو انتهت صلاحيته. راجع بريدك وحاول مجددًا.",
+        "functions/resource-exhausted": "طلبات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.",
+        "functions/unavailable": "تعذر إرسال رسالة التحقق. راجع إعدادات البريد الإلكتروني.",
+        "functions/internal": "خدمة التحقق غير منشورة أو غير متاحة من هذا النطاق. انشر Cloud Functions وتحقق من إعدادات Firebase.",
+        "functions/unknown": "خدمة التحقق غير منشورة أو غير متاحة من هذا النطاق. انشر Cloud Functions وتحقق من إعدادات Firebase.",
+        "functions/not-found": "انتهت صلاحية جلسة التحقق. ابدأ تسجيل الدخول من جديد.",
+        "auth/operation-not-allowed": "طريقة الدخول هذه غير مفعّلة في إعدادات Firebase.",
+        "auth/popup-closed-by-user": "أُغلقت نافذة تسجيل الدخول قبل اكتمالها.",
+        "auth/account-exists-with-different-credential": "هذا البريد مرتبط بطريقة تسجيل دخول أخرى. استخدمها للمتابعة."
+      };
+      return messages[error.code] || "تعذر إكمال تسجيل الدخول. تحقق من الإعدادات وحاول مرة أخرى.";
+    }
+
+    function setBusy(button, busy, busyLabel) {
+      if (!button.dataset.label) button.dataset.label = button.textContent;
+      button.disabled = busy;
+      button.textContent = busy ? busyLabel : button.dataset.label;
+    }
+
+    function startResendCountdown(seconds) {
+      window.clearInterval(resendTimer);
+      resendRemaining = Math.max(1, Math.ceil(seconds));
+      resendButton.disabled = true;
+      const tick = () => {
+        if (resendRemaining <= 0) {
+          resendButton.disabled = false;
+          resendButton.textContent = "إعادة إرسال الرمز";
+          window.clearInterval(resendTimer);
+          return;
+        }
+        resendButton.textContent = `إعادة الإرسال بعد ${resendRemaining} ث`;
+        resendRemaining -= 1;
+      };
+      tick();
+      resendTimer = window.setInterval(tick, 1000);
+    }
+
+    async function setSelectedPersistence() {
+      const persistence = document.querySelector("[name='remember']").checked
+        ? browserLocalPersistence
+        : browserSessionPersistence;
+      await setPersistence(auth, persistence);
+    }
+
+    document.querySelector(".reveal-password").addEventListener("click", (event) => {
+      const button = event.currentTarget;
+      const visible = passwordInput.type === "password";
+      passwordInput.type = visible ? "text" : "password";
+      button.setAttribute("aria-pressed", String(visible));
+      button.setAttribute("aria-label", visible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور");
+    });
+
+    document.querySelector("#login-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = event.currentTarget.querySelector("[type='submit']");
+      setBusy(button, true, "جارٍ التحقق...");
+      try {
+        const request = isCreatingAccount
+          ? beginEmailSignup({ email: emailInput.value.trim() })
+          : beginEmailLogin({ email: emailInput.value.trim(), password: passwordInput.value });
+        const result = await request;
+        challengeId = result.data.challengeId;
+        document.querySelector("#code-destination").textContent = emailInput.value.trim();
+        document.querySelector("#verification-title").textContent = isCreatingAccount ? "أكد بريدك لإنشاء الحساب" : "تحقق من بريدك";
+        document.querySelector("#verification-copy").lastChild.textContent = isCreatingAccount
+          ? ". أدخل الرمز لإكمال إنشاء الحساب."
+          : ". أدخل الرمز لإكمال تسجيل الدخول.";
+        document.querySelector("#verify-button").textContent = isCreatingAccount ? "تأكيد الرمز وإنشاء الحساب" : "تأكيد الرمز وتسجيل الدخول";
+        loginOptions.hidden = true;
+        verificationStep.hidden = false;
+        codeInput.value = "";
+        startResendCountdown(result.data.resendAfterSeconds);
+        codeInput.focus();
+        showMessage("أرسلنا رمز تحقق إلى بريدك الإلكتروني.");
+      } catch (error) {
+        showMessage(error.code === "functions/not-found"
+          ? "خدمة إرسال رمز التحقق غير منشورة على Firebase. يلزم نشر Cloud Functions."
+          : errorMessage(error));
+      } finally {
+        setBusy(button, false, "جارٍ التحقق...");
+        button.dataset.label = isCreatingAccount ? "إنشاء الحساب" : "تسجيل الدخول";
+        button.textContent = button.dataset.label;
+      }
+    });
+
+    codeInput.addEventListener("input", () => {
+      codeInput.value = codeInput.value.replace(/\D/g, "").slice(0, 6);
+    });
+
+    document.querySelector("#verification-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = document.querySelector("#verify-button");
+      setBusy(button, true, "جارٍ تأكيد الرمز...");
+      try {
+        const verification = {
+          email: emailInput.value.trim(),
+          challengeId,
+          code: codeInput.value
+        };
+        const result = isCreatingAccount
+          ? await verifyEmailSignup({ ...verification, password: passwordInput.value })
+          : await verifyEmailCode(verification);
+        await setSelectedPersistence();
+        await signInWithCustomToken(auth, result.data.token);
+        showMessage(isCreatingAccount ? "تم تأكيد بريدك وإنشاء الحساب بنجاح." : "تم تأكيد البريد وتسجيل الدخول بنجاح.");
+        const next = new URLSearchParams(location.search).get("next");
+        if (next) {
+          const target = new URL(next, location.href);
+          if (target.origin === location.origin && target.href !== location.href) location.assign(target.href);
+        }
+      } catch (error) {
+        showMessage(errorMessage(error));
+      } finally {
+        setBusy(button, false, "جارٍ تأكيد الرمز...");
+      }
+    });
+
+    resendButton.addEventListener("click", async () => {
+      setBusy(resendButton, true, "جارٍ الإرسال...");
+      try {
+        const result = await resendEmailCode({ email: emailInput.value.trim(), challengeId });
+        challengeId = result.data.challengeId;
+        startResendCountdown(result.data.resendAfterSeconds);
+        codeInput.value = "";
+        showMessage("أرسلنا رمز تحقق جديدًا إلى بريدك.");
+      } catch (error) {
+        setBusy(resendButton, false, "جارٍ الإرسال...");
+        showMessage(errorMessage(error));
+        if (error.code === "functions/resource-exhausted") startResendCountdown(60);
+      }
+    });
+
+    document.querySelector("#back-to-login").addEventListener("click", () => {
+      window.clearInterval(resendTimer);
+      challengeId = "";
+      verificationStep.hidden = true;
+      loginOptions.hidden = false;
+      codeInput.value = "";
+    });
+
+    document.querySelector("#forgot-link").addEventListener("click", async (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) {
+        showMessage("اكتب بريدك الإلكتروني أولًا لإرسال رابط استعادة كلمة المرور.");
+        emailInput.focus();
+        return;
+      }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showMessage("إذا كان البريد مسجلًا، سيصلك رابط إعادة تعيين كلمة المرور.");
+      } catch (error) {
+        showMessage(errorMessage(error));
+      }
+    });
+
+    document.querySelectorAll("[data-provider]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const providers = {
+          google: new GoogleAuthProvider(),
+          microsoft: new OAuthProvider("microsoft.com"),
+          github: new GithubAuthProvider(),
+          facebook: new FacebookAuthProvider()
+        };
+        setBusy(button, true, "جارٍ فتح نافذة الدخول...");
+        try {
+          await setSelectedPersistence();
+          await signInWithPopup(auth, providers[button.dataset.provider]);
+          showMessage("تم تسجيل الدخول بنجاح.");
+        } catch (error) {
+          showMessage(errorMessage(error));
+        } finally {
+          setBusy(button, false, "جارٍ فتح نافذة الدخول...");
+        }
+      });
+    });
+
+    document.querySelector("#signup-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      isCreatingAccount = !isCreatingAccount;
+      document.querySelector("#login-title").textContent = isCreatingAccount ? "أنشئ حسابك" : "أهلًا بعودتك";
+      document.querySelector("#login-description").textContent = isCreatingAccount
+        ? "أنشئ حسابك وابدأ مغامرتك في عالم خدمات ماينكرافت المجانية."
+        : "سجّل دخولك واكتشف عالمًا من خدمات ماينكرافت المجانية.";
+      document.querySelector("#forgot-link").hidden = isCreatingAccount;
+      passwordInput.autocomplete = isCreatingAccount ? "new-password" : "current-password";
+      passwordInput.minLength = isCreatingAccount ? 6 : 0;
+      const submitButton = document.querySelector("#login-form [type='submit']");
+      submitButton.dataset.label = isCreatingAccount ? "إنشاء الحساب" : "تسجيل الدخول";
+      submitButton.textContent = submitButton.dataset.label;
+      const signupCopy = document.querySelector("#signup-copy");
+      signupCopy.firstChild.textContent = isCreatingAccount ? "لديك حساب بالفعل؟ " : "ليس لديك حساب؟ ";
+      const signupToggle = document.querySelector("#signup-toggle");
+      signupToggle.textContent = isCreatingAccount ? "تسجيل الدخول" : "أنشئ حسابًا";
+      signupToggle.href = isCreatingAccount ? "#login" : "#signup";
+    });
+  </script>
+</body>
+</html>
